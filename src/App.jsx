@@ -18,7 +18,7 @@ function App() {
   }, [chats])
 
   return (
-    <div className="w-full min-h-screen h-dvh flex flex-col bg-white overflow-x-hidden">   <Sidebar
+    <div className="w-full min-h-screen h-dvh flex flex-col bg-white  overflow-hidden">   <Sidebar
       sidebarOpen={sidebarOpen}
       setSidebarOpen={setSidebarOpen}
       chats={chats}
