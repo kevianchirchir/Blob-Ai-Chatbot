@@ -1,10 +1,10 @@
 import './App.css'
 import { Blob, Widget, Search, Cog, CaretBigRight, Stop, Menu, Trash } from '@boxicons/react'
-import { useState, useRef, useEffect} from 'react'
+import { useState, useRef, useEffect } from 'react'
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
- 
+
   const [chats, setChats] = useState(() => {
     const saved = localStorage.getItem("blob_chats")
     return saved
@@ -18,15 +18,14 @@ function App() {
   }, [chats])
 
   return (
-    <div className="flex h-screen">
-      <Sidebar
-        sidebarOpen={sidebarOpen}
-        setSidebarOpen={setSidebarOpen}
-        chats={chats}
-        setChats={setChats}
-        activeChatId={activeChatId}
-        setActiveChatId={setActiveChatId}
-      />
+    <div className="w-full min-h-screen h-dvh flex flex-col bg-white overflow-x-hidden">   <Sidebar
+      sidebarOpen={sidebarOpen}
+      setSidebarOpen={setSidebarOpen}
+      chats={chats}
+      setChats={setChats}
+      activeChatId={activeChatId}
+      setActiveChatId={setActiveChatId}
+    />
 
       <Chatbot
         setSidebarOpen={setSidebarOpen}
@@ -58,9 +57,8 @@ function Sidebar({
       {/* overlay (mobile) */}
       <div
         onClick={() => setSidebarOpen(false)}
-        className={`fixed inset-0 bg-black/40 z-40 md:hidden ${
-          sidebarOpen ? "block" : "hidden"
-        }`}
+        className={`fixed inset-0 bg-black/40 z-40 md:hidden ${sidebarOpen ? "block" : "hidden"
+          }`}
       />
 
       {/* SIDEBAR */}
@@ -69,7 +67,7 @@ function Sidebar({
         ${sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
       >
 
-        {/* HEADER (your design kept) */}
+        {/* HEADER */}
         <div className="flex flex-col items-center gap-2 pt-6 pb-4 relative">
 
           <button
@@ -87,7 +85,7 @@ function Sidebar({
           <div className="w-32 h-1 bg-blue-400 rounded-full shadow-md"></div>
         </div>
 
-        {/* ACTION BUTTONS (unchanged look) */}
+        {/* ACTION BUTTONS */}
         <div className="px-4 flex flex-col gap-2">
 
           <button
@@ -107,19 +105,18 @@ function Sidebar({
             <Widget size={20} /> New Chat
           </button>
 
-          
+
 
         </div>
 
-        {/* CHAT LIST (scrollable + delete) */}
+        {/* CHAT LIST  */}
         <div className="mt-4 px-4 flex-1 overflow-y-auto flex flex-col gap-2">
 
           {chats.map(chat => (
             <div
               key={chat.id}
-              className={`group flex items-center justify-between px-2 py-1 rounded-lg hover:bg-blue-100 transition ${
-                chat.id === activeChatId ? "bg-blue-100" : ""
-              }`}
+              className={`group flex items-center justify-between px-2 py-1 rounded-lg hover:bg-blue-100 transition ${chat.id === activeChatId ? "bg-blue-100" : ""
+                }`}
             >
 
               {/* CHAT TITLE */}
@@ -331,12 +328,12 @@ function Chatbot({
 
         </div>
 
-        {/* 🌫️ BLUR ONLY BEHIND CHAT (NOT INPUT) */}
+        {/* text blurr */}
         <div className="pointer-events-none absolute bottom-0 left-0 w-full h-20 bg-gradient-to-t from-white to-transparent" />
 
       </div>
 
-      {/* INPUT AREA (NO BLUR INTERFERENCE) */}
+      {/* INPUT AREA */}
       <div className="relative z-10 p-3 flex justify-center">
 
         <div className="w-full max-w-2xl flex items-center bg-gray-200 rounded-full px-2">
@@ -372,6 +369,8 @@ function Chatbot({
   )
 }
 
+
+{/*lil generation */ }
 function generateChatTitle(text) {
   return text
     .trim()
