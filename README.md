@@ -1,5 +1,5 @@
 # Blob AI Chatbot
-<img width="1918" height="908" alt="image" src="https://github.com/user-attachments/assets/8a434293-eb65-47bd-ad7b-3e8a3ecaa172" />
+<img width="1918" height="910" alt="image" src="https://github.com/user-attachments/assets/804c39b0-5d03-43ef-b2d2-979bd0c3e774" />
 
 # An AI Chatbot built with React
 Features: <br>
