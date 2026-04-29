@@ -3,11 +3,11 @@
 
 # An AI Chatbot built with React
 Features: <br>
-\t• Real AI interaction! (ik impressive right😭😛)
-\t• Auto-titling chats
-\t• Ability to start new chats
-\t• Modern UI Design
-\t• Animations!
+<br>  • Real AI interaction! (ik impressive right😭😛)
+<br>  • Auto-titling chats
+<br>  • Ability to start new chats
+<br>  • Modern UI Design
+<br>  • Animations!
 
 # Powered fully by Puter.js
 <img width="225" height="225" alt="image" src="https://github.com/user-attachments/assets/6b7f7dbd-78cd-44d6-b895-362b58073bd4" />
