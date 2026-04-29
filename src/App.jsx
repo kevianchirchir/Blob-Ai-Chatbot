@@ -18,7 +18,7 @@ function App() {
   }, [chats])
 
   return (
-    <div className="w-full min-h-screen h-dvh flex flex-col bg-white  overflow-hidden">   <Sidebar
+    <div className="flex min-h-screen h-[100dvh] overflow-x-hidden">      <Sidebar
       sidebarOpen={sidebarOpen}
       setSidebarOpen={setSidebarOpen}
       chats={chats}
@@ -246,8 +246,7 @@ function Chatbot({
   }
 
   return (
-    <div className="w-full h-screen flex flex-col bg-white">
-
+<div className="w-full pt-30 md:pt-0 pl-5 md:pl-0 h-screen flex flex-col bg-white">
       {/* HEADER */}
       <div className="p-3 md:p-4 flex items-center gap-2">
 
@@ -301,7 +300,7 @@ function Chatbot({
 
                   {/* MESSAGE BUBBLE */}
                   <div
-                    className={`px-3 py-2 rounded-xl text-sm whitespace-pre-wrap leading-relaxed break-words ${msg.role === "user"
+                    className={`px-3 py-2 rounded-xl text-base whitespace-pre-wrap leading-relaxed break-words ${msg.role === "user"
                       ? "bg-blue-400 text-white"
                       : "bg-gray-200"
                       }`}
@@ -350,7 +349,7 @@ function Chatbot({
             }}
             placeholder="Ask anything 😊"
             rows={1}
-            className="flex-1 resize-none bg-transparent outline-none px-3 py-2 text-sm leading-relaxed placeholder:text-gray-400"
+            className="flex-1 resize-none bg-transparent outline-none px-3 py-2 text-base leading-relaxed placeholder:text-gray-400"
           />
 
           <button
