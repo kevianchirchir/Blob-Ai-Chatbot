@@ -228,15 +228,26 @@ function Chatbot({
         signal: abortRef.current.signal
       })
 
+      const aiRaw = res.message.content
+
+      let aiText = ""
+
+      if (Array.isArray(aiRaw)) {
+        aiText = aiRaw.map(item => item.text).join("")
+      } else if (typeof aiRaw === "object") {
+        aiText = aiRaw.text || ""
+      } else {
+        aiText = aiRaw
+      }
+
       updateChat([
         ...newMessages,
-        { role: "assistant", content: res.message.content }
+        { role: "assistant", content: aiText }
       ])
 
     } catch (e) {
       console.log(e)
     }
-
     setLoading(false)
   }
 
@@ -246,7 +257,7 @@ function Chatbot({
   }
 
   return (
-<div className="w-full pt-30 md:pt-0 pl-5 md:pl-0 h-screen flex flex-col bg-white">
+    <div className="w-full pt-30 md:pt-0 pl-5 md:pl-0 h-screen flex flex-col bg-white">
       {/* HEADER */}
       <div className="p-3 md:p-4 flex items-center gap-2">
 
@@ -257,8 +268,11 @@ function Chatbot({
           <Menu size={22} />
         </button>
 
-        <div>
-          <h1 className="font-semibold">Blob AI</h1>
+        <div className='flex flex-col'>
+          <div className='flex justify-between'>
+            <h1 className="font-semibold">Blob AI</h1>
+
+          </div>
           <p className="text-xs text-gray-500">Chat</p>
         </div>
 
