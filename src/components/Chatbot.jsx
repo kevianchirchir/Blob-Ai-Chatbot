@@ -22,6 +22,18 @@ function Chatbot({
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
     }, [activeChat?.messages])
 
+    // fix: on mobile the keyboard pushes the viewport up and breaks fixed layouts
+    useEffect(() => {
+        const handleResize = () => {
+            document.documentElement.style.setProperty(
+                "--vh", `${window.innerHeight * 0.01}px`
+            )
+        }
+        handleResize()
+        window.addEventListener("resize", handleResize)
+        return () => window.removeEventListener("resize", handleResize)
+    }, [])
+
     const updateChat = (newMessages) => {
         setChats(prev =>
             prev.map(chat =>
@@ -80,12 +92,14 @@ function Chatbot({
     }
 
     return (
-        <div className="w-full h-screen flex flex-col bg-zinc-900">
-
+        <div
+            className="w-full flex flex-col bg-zinc-900"
+            style={{ height: "calc(var(--vh, 1vh) * 100)" }}
+        >
             {/* Header */}
-            <div className="flex items-center gap-3 px-4 py-3 border-b border-white/10">
+            <div className="flex items-center gap-3 px-4 py-3 border-b border-white/10 flex-shrink-0">
                 <button
-                    className="md:hidden text-white/40 hover:text-white transition"
+                    className="md:hidden text-white/40 hover:text-white transition p-1"
                     onClick={() => setSidebarOpen(true)}
                 >
                     <Menu size={20} />
@@ -98,23 +112,24 @@ function Chatbot({
                     <div>
                         <p className="text-sm font-semibold text-white leading-none">Blob AI</p>
                         <p className="text-xs text-white/30 leading-none mt-0.5">
-                            {loading ? (
-                                <span className="text-blue-400">thinking...</span>
-                            ) : "ready"}
+                            {loading
+                                ? <span className="text-blue-400">thinking...</span>
+                                : "ready"
+                            }
                         </p>
                     </div>
                 </div>
             </div>
 
             {/* Messages */}
-            <div className="flex-1 relative overflow-hidden">
-                <div className="h-full overflow-y-auto px-4 py-4 pb-6 flex flex-col gap-4">
+            <div className="flex-1 relative overflow-hidden min-h-0">
+                <div className="h-full overflow-y-auto px-3 sm:px-4 py-4 pb-4 flex flex-col gap-3">
 
                     {activeChat?.messages?.length === 0 ? (
                         <motion.div
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="flex flex-col items-center justify-center h-full gap-3 text-center"
+                            className="flex flex-col items-center justify-center h-full gap-3 text-center px-4"
                         >
                             <div className="w-12 h-12 rounded-2xl bg-blue-500/20 border border-blue-400/30 flex items-center justify-center">
                                 <Blob size={24} className="text-blue-400" />
@@ -132,23 +147,22 @@ function Chatbot({
                                     initial={{ opacity: 0, y: 8 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.2 }}
-                                    className={`flex items-end gap-2 max-w-[80%] ${msg.role === "user"
-                                        ? "self-end flex-row-reverse"
-                                        : "self-start"
+                                    className={`flex items-end gap-2 w-full ${msg.role === "user"
+                                        ? "justify-end"
+                                        : "justify-start"
                                         }`}
                                 >
-                                    {/* AI avatar */}
                                     {msg.role === "assistant" && (
                                         <div className="w-6 h-6 rounded-lg bg-blue-500/20 border border-blue-400/30 flex items-center justify-center flex-shrink-0 mb-0.5">
                                             <Blob size={12} className="text-blue-400" />
                                         </div>
                                     )}
 
-                                    <div className="flex flex-col gap-1">
+                                    <div className={`flex flex-col gap-1 max-w-[75%] sm:max-w-[80%] ${msg.role === "user" ? "items-end" : "items-start"}`}>
                                         {msg.role === "assistant" && (
                                             <p className="text-xs text-white/30 px-1">Blob AI</p>
                                         )}
-                                        <div className={`px-4 py-2.5 rounded-2xl text-sm whitespace-pre-wrap leading-relaxed break-words
+                                        <div className={`px-3 sm:px-4 py-2 sm:py-2.5 rounded-2xl text-sm whitespace-pre-wrap leading-relaxed break-words
                                             ${msg.role === "user"
                                                 ? "bg-blue-500 text-white rounded-br-sm"
                                                 : "bg-white/8 text-white/85 border border-white/10 rounded-bl-sm"
@@ -169,9 +183,9 @@ function Chatbot({
                                 initial={{ opacity: 0, y: 6 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: 6 }}
-                                className="flex items-center gap-2 self-start"
+                                className="flex items-center gap-2"
                             >
-                                <div className="w-6 h-6 rounded-lg bg-blue-500/20 border border-blue-400/30 flex items-center justify-center">
+                                <div className="w-6 h-6 rounded-lg bg-blue-500/20 border border-blue-400/30 flex items-center justify-center flex-shrink-0">
                                     <Blob size={12} className="text-blue-400" />
                                 </div>
                                 <div className="bg-white/8 border border-white/10 rounded-2xl rounded-bl-sm px-4 py-2.5 flex items-center gap-1.5">
@@ -191,13 +205,12 @@ function Chatbot({
                     <div ref={messagesEndRef} />
                 </div>
 
-                {/* Bottom fade */}
-                <div className="pointer-events-none absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-zinc-900 to-transparent" />
+                <div className="pointer-events-none absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-zinc-900 to-transparent" />
             </div>
 
             {/* Input */}
-            <div className="px-4 pb-4 pt-2">
-                <div className="w-full max-w-2xl mx-auto flex items-end gap-2 bg-white/5 border border-white/10 rounded-2xl px-4 py-2 focus-within:border-blue-500/50 transition-colors">
+            <div className="px-3 sm:px-4 pb-4 pt-2 flex-shrink-0">
+                <div className="w-full max-w-2xl mx-auto flex items-end gap-2 bg-white/5 border border-white/10 rounded-2xl px-3 sm:px-4 py-2 focus-within:border-blue-500/50 transition-colors">
                     <textarea
                         value={input}
                         disabled={loading}
