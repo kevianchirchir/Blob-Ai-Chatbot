@@ -13,5 +13,5 @@ Features: <br>
 <img width="225" height="225" alt="image" src="https://github.com/user-attachments/assets/6b7f7dbd-78cd-44d6-b895-362b58073bd4" />
 
 
-Live Demo @ https://blob-ai.vercel.app/
+Live Demo @ https://blob-ai.vercel.app/<br>
 Learn more @ https://developer.puter.com/
