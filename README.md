@@ -1,5 +1,5 @@
 # Blob AI Chatbot
-<img width="1918" height="910" alt="image" src="https://github.com/user-attachments/assets/804c39b0-5d03-43ef-b2d2-979bd0c3e774" />
+<img width="959" height="539" alt="image" src="https://github.com/user-attachments/assets/a2b48b08-6dca-4113-afac-2200b62e6072" />
 
 # An AI Chatbot built with React
 Features: <br>
@@ -12,4 +12,6 @@ Features: <br>
 # Powered fully by Puter.js
 <img width="225" height="225" alt="image" src="https://github.com/user-attachments/assets/6b7f7dbd-78cd-44d6-b895-362b58073bd4" />
 
+
+Live Demo @ https://blob-ai.vercel.app/<br>
 Learn more @ https://developer.puter.com/
